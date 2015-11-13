@@ -2,11 +2,9 @@ package cloudflare
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
-	"strings"
 
 	"golang.org/x/net/context"
 )
@@ -21,13 +19,9 @@ func readResponse(r io.Reader) (result *Response, err error) {
 	result = new(Response)
 	err = json.NewDecoder(r).Decode(result)
 	if err != nil {
-		return
-	}
-	if result.Success {
-		return
-	}
-	if len(result.Errors) > 0 {
-		return nil, errors.New(strings.Join(result.Errors, ", "))
+		return nil, err
+	} else if err := result.Err(); err != nil {
+		return nil, err
 	}
 	return
 }
