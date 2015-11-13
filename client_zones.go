@@ -13,13 +13,27 @@ type Zones struct {
 }
 
 // Create - Creates a zone.
-func (zones *Zones) Create(ctx context.Context, domain string) (err error) {
-	response, err := httpDo(ctx, zones.opts, "POST", apiURL("/zones?name=%s", domain), nil)
+func (zones *Zones) Create(ctx context.Context, domain string) (zone *Zone, err error) {
+	buffer := new(bytes.Buffer)
+	err = json.NewEncoder(buffer).Encode(struct {
+		Name string `json:"name"`
+	}{
+		Name: domain,
+	})
+	if err != nil {
+		return
+	}
+	response, err := httpDo(ctx, zones.opts, "POST", apiURL("/zones"), buffer)
 	if err != nil {
 		return
 	}
 	defer response.Body.Close()
-	_, err = readResponse(response.Body)
+	result, err := readResponse(response.Body)
+	if err != nil {
+		return
+	}
+	zone = new(Zone)
+	err = json.Unmarshal(result.Result, &zone)
 	return
 }
 
@@ -51,7 +65,7 @@ func (zones *Zones) Patch(ctx context.Context, id string, patch *ZonePatch) (err
 	if err != nil {
 		return
 	}
-	response, err := httpDo(ctx, zones.opts, "POST", apiURL("/zones/%s?", id), buffer)
+	response, err := httpDo(ctx, zones.opts, "POST", apiURL("/zones/%s", id), buffer)
 	if err != nil {
 		return
 	}
