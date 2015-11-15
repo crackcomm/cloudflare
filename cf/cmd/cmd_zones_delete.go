@@ -13,7 +13,7 @@ var cmdZonesDelete = cli.Command{
 	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
-			log.Fatal("Zone ID is required to delete one.")
+			log.Fatal("Usage error: zone id is required to delete one.")
 		}
 
 		id := c.Args().First()

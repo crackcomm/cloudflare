@@ -11,10 +11,3 @@ var cmdRecords = cli.Command{
 		cmdRecordsDelete,
 	},
 }
-
-var cmdRecordsDelete = cli.Command{
-	Name:      "delete",
-	Usage:     "deletes zone record",
-	ArgsUsage: "<zone-id> <record-id>",
-	Action:    func(c *cli.Context) {},
-}

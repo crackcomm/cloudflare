@@ -15,7 +15,7 @@ var cmdZonesDetails = cli.Command{
 	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
-			log.Fatal("Zone ID is required to print details.")
+			log.Fatal("Usage error: zone id is required to print details.")
 		}
 
 		zone, err := client(c).Zones.Details(context.Background(), c.Args().First())

@@ -15,7 +15,7 @@ var cmdZonesCreate = cli.Command{
 	ArgsUsage: "<domain>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
-			log.Fatal("Domain name is required to create zone.")
+			log.Fatal("Usage error: domain name is required to create a zone.")
 		}
 
 		domain := c.Args().First()

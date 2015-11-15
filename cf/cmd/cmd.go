@@ -37,3 +37,12 @@ func yesOrNo(b bool) string {
 	}
 	return "no"
 }
+
+func stringIn(s string, l []string) bool {
+	for _, v := range l {
+		if v == s {
+			return true
+		}
+	}
+	return false
+}

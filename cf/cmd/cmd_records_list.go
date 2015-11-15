@@ -17,10 +17,10 @@ var cmdRecordsList = cli.Command{
 	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
-			log.Fatal("Zone ID is required to print its records.")
+			log.Fatal("Usage error: zone id is required to print its records.")
 		}
 
-		zones, err := client(c).Records.List(context.Background(), c.Args().First())
+		records, err := client(c).Records.List(context.Background(), c.Args().First())
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -37,18 +37,18 @@ var cmdRecordsList = cli.Command{
 			"Created On",
 			"Modified On",
 		})
-		for _, zone := range zones {
+		for _, record := range records {
 			table.Append([]string{
-				zone.ID,
-				zone.Type,
-				zone.Name,
-				zone.Content,
-				yesOrNo(zone.Proxiable),
-				yesOrNo(zone.Proxied),
-				yesOrNo(zone.Locked),
-				fmt.Sprintf("%d", zone.TTL),
-				zone.CreatedOn.Format("2006/01/02 15:04:05"),
-				zone.ModifiedOn.Format("2006/01/02 15:04:05"),
+				record.ID,
+				record.Type,
+				record.Name,
+				record.Content,
+				yesOrNo(record.Proxiable),
+				yesOrNo(record.Proxied),
+				yesOrNo(record.Locked),
+				fmt.Sprintf("%d", record.TTL),
+				record.CreatedOn.Format("2006/01/02 15:04:05"),
+				record.ModifiedOn.Format("2006/01/02 15:04:05"),
 			})
 		}
 		table.Render()
