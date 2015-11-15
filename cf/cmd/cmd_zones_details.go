@@ -11,8 +11,8 @@ import (
 
 var cmdZonesDetails = cli.Command{
 	Name:      "details",
-	ArgsUsage: "[id]",
 	Usage:     "print zone details",
+	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
 			log.Fatal("Zone ID is required to print details.")

@@ -14,7 +14,7 @@ import (
 var cmdRecordsList = cli.Command{
 	Name:      "list",
 	Usage:     "lists zone records",
-	ArgsUsage: "[zone]",
+	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
 			log.Fatal("Zone ID is required to print its records.")

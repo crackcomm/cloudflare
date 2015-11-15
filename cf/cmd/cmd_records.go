@@ -15,6 +15,6 @@ var cmdRecords = cli.Command{
 var cmdRecordsDelete = cli.Command{
 	Name:      "delete",
 	Usage:     "deletes zone record",
-	ArgsUsage: "[zone] [record-id]",
+	ArgsUsage: "<zone-id> <record-id>",
 	Action:    func(c *cli.Context) {},
 }

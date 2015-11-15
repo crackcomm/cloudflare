@@ -9,8 +9,8 @@ import (
 
 var cmdZonesDelete = cli.Command{
 	Name:      "delete",
-	ArgsUsage: "[id]",
 	Usage:     "delete zone",
+	ArgsUsage: "<zone-id>",
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
 			log.Fatal("Zone ID is required to delete one.")
