@@ -2,6 +2,9 @@
 package cmd
 
 import (
+	"log"
+	"os"
+
 	"github.com/codegangsta/cli"
 	"github.com/crackcomm/cloudflare"
 )
@@ -15,10 +18,17 @@ func New() []cli.Command {
 }
 
 func client(c *cli.Context) *cloudflare.Client {
-	return cloudflare.New(&cloudflare.Options{
+	opts := &cloudflare.Options{
 		Key:   c.GlobalString("key"),
 		Email: c.GlobalString("email"),
-	})
+	}
+	if opts.Key == "" || opts.Email == "" {
+		log.Println("You have to provide Cloudflare Email and API key.")
+		log.Println("Use CLOUDFLARE_EMAIL and CLOUDFLARE_KEY environment variables.")
+		log.Println("Or alternatively provide them in -email and -key flags in each call.")
+		os.Exit(255)
+	}
+	return cloudflare.New(opts)
 }
 
 func yesOrNo(b bool) string {
