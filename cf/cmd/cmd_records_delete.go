@@ -44,8 +44,8 @@ var cmdRecordsDelete = cli.Command{
 
 		var (
 			ids    []string
-			types  = strings.Split(c.String("type"), ",")
-			ignore = strings.Split(c.String("ignore"), ",")
+			types  = splitComma(c.String("type"))
+			ignore = splitComma(c.String("ignore"))
 		)
 
 		if c.Bool("all") {
@@ -76,4 +76,11 @@ var cmdRecordsDelete = cli.Command{
 
 		log.Println("Done")
 	},
+}
+
+func splitComma(s string) []string {
+	if len(s) == 0 {
+		return nil
+	}
+	return strings.Split(s, ",")
 }
