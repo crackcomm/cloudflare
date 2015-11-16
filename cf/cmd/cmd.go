@@ -4,6 +4,7 @@ package cmd
 import (
 	"log"
 	"os"
+	"strings"
 
 	"github.com/codegangsta/cli"
 	"github.com/crackcomm/cloudflare"
@@ -45,4 +46,11 @@ func stringIn(s string, l []string) bool {
 		}
 	}
 	return false
+}
+
+func splitComma(s string) []string {
+	if len(s) == 0 {
+		return nil
+	}
+	return strings.Split(s, ",")
 }

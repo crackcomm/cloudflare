@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"log"
-	"strings"
 
 	"github.com/codegangsta/cli"
 	"golang.org/x/net/context"
@@ -75,11 +74,4 @@ var cmdRecordsDelete = cli.Command{
 
 		log.Println("Done")
 	},
-}
-
-func splitComma(s string) []string {
-	if len(s) == 0 {
-		return nil
-	}
-	return strings.Split(s, ",")
 }
