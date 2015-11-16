@@ -1,4 +1,3 @@
-// Package cmd implements cloudflare cli commands.
 package cmd
 
 import "github.com/codegangsta/cli"
