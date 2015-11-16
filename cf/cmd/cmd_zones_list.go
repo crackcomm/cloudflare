@@ -19,6 +19,10 @@ var cmdZonesList = cli.Command{
 			Name:  "list",
 			Usage: "if true only prints ids",
 		},
+		cli.BoolFlag{
+			Name:  "domains",
+			Usage: "(only with --list) if true only prints domains",
+		},
 	},
 	Action: func(c *cli.Context) {
 		zones, err := client(c).Zones.List(context.Background())
@@ -36,7 +40,11 @@ var cmdZonesList = cli.Command{
 
 		for _, zone := range zones {
 			if c.Bool("list") {
-				fmt.Println(zone.ID)
+				if c.Bool("domains") {
+					fmt.Println(zone.Name)
+				} else {
+					fmt.Println(zone.ID)
+				}
 			} else {
 				table.Append([]string{
 					zone.ID,
