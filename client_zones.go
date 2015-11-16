@@ -100,7 +100,7 @@ func (zones *Zones) listPages(ctx context.Context, page int) (list []*Zone, err 
 	if err != nil {
 		return
 	}
-	if result.ResultInfo == nil || page == result.ResultInfo.TotalPages {
+	if result.ResultInfo == nil || page >= result.ResultInfo.TotalPages {
 		return
 	}
 	next, err := zones.listPages(ctx, page+1)

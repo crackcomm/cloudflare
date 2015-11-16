@@ -93,7 +93,7 @@ func (records *Records) listPages(ctx context.Context, zoneID string, page int) 
 	if err != nil {
 		return
 	}
-	if result.ResultInfo == nil || page == result.ResultInfo.TotalPages {
+	if result.ResultInfo == nil || page >= result.ResultInfo.TotalPages {
 		return
 	}
 	next, err := records.listPages(ctx, zoneID, page+1)
