@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -13,11 +14,18 @@ import (
 var cmdZonesList = cli.Command{
 	Name:  "list",
 	Usage: "lists zones",
+	Flags: []cli.Flag{
+		cli.BoolFlag{
+			Name:  "list",
+			Usage: "if true only prints ids",
+		},
+	},
 	Action: func(c *cli.Context) {
 		zones, err := client(c).Zones.List(context.Background())
 		if err != nil {
 			log.Fatal(err)
 		}
+
 		table := tablewriter.NewWriter(os.Stdout)
 		table.SetHeader([]string{
 			"ID",
@@ -25,14 +33,22 @@ var cmdZonesList = cli.Command{
 			"Paused",
 			"Status",
 		})
+
 		for _, zone := range zones {
-			table.Append([]string{
-				zone.ID,
-				zone.Name,
-				yesOrNo(zone.Paused),
-				zone.Status,
-			})
+			if c.Bool("list") {
+				fmt.Println(zone.ID)
+			} else {
+				table.Append([]string{
+					zone.ID,
+					zone.Name,
+					yesOrNo(zone.Paused),
+					zone.Status,
+				})
+			}
 		}
-		table.Render()
+
+		if !c.Bool("list") {
+			table.Render()
+		}
 	},
 }

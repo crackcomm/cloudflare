@@ -15,6 +15,12 @@ var cmdRecordsList = cli.Command{
 	Name:      "list",
 	Usage:     "lists zone records",
 	ArgsUsage: "<zone-id>",
+	Flags: []cli.Flag{
+		cli.BoolFlag{
+			Name:  "list",
+			Usage: "if true only prints ids",
+		},
+	},
 	Action: func(c *cli.Context) {
 		if len(c.Args()) == 0 {
 			log.Fatal("Usage error: zone id is required to print its records.")
@@ -24,6 +30,7 @@ var cmdRecordsList = cli.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
+
 		table := tablewriter.NewWriter(os.Stdout)
 		table.SetHeader([]string{
 			"ID",
@@ -37,20 +44,28 @@ var cmdRecordsList = cli.Command{
 			"Created On",
 			"Modified On",
 		})
+
 		for _, record := range records {
-			table.Append([]string{
-				record.ID,
-				record.Type,
-				record.Name,
-				record.Content,
-				yesOrNo(record.Proxiable),
-				yesOrNo(record.Proxied),
-				yesOrNo(record.Locked),
-				fmt.Sprintf("%d", record.TTL),
-				record.CreatedOn.Format("2006/01/02 15:04:05"),
-				record.ModifiedOn.Format("2006/01/02 15:04:05"),
-			})
+			if c.Bool("list") {
+				fmt.Println(record.ID)
+			} else {
+				table.Append([]string{
+					record.ID,
+					record.Type,
+					record.Name,
+					record.Content,
+					yesOrNo(record.Proxiable),
+					yesOrNo(record.Proxied),
+					yesOrNo(record.Locked),
+					fmt.Sprintf("%d", record.TTL),
+					record.CreatedOn.Format("2006/01/02 15:04:05"),
+					record.ModifiedOn.Format("2006/01/02 15:04:05"),
+				})
+			}
 		}
-		table.Render()
+
+		if !c.Bool("list") {
+			table.Render()
+		}
 	},
 }
