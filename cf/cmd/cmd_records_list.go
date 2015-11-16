@@ -8,6 +8,8 @@ import (
 	"github.com/codegangsta/cli"
 	"github.com/olekukonko/tablewriter"
 	"golang.org/x/net/context"
+
+	"github.com/crackcomm/cloudflare"
 )
 
 var cmdRecordsList = cli.Command{
@@ -30,36 +32,13 @@ var cmdRecordsList = cli.Command{
 			log.Fatal(err)
 		}
 
-		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{
-			"ID",
-			"Type",
-			"Name",
-			"Content",
-			"Proxiable",
-			"Proxied",
-			"Locked",
-			"TTL",
-			"Created On",
-			"Modified On",
-		})
+		table := newRecordsTable()
 
 		for _, record := range records {
 			if c.Bool("list") {
 				fmt.Println(record.ID)
 			} else {
-				table.Append([]string{
-					record.ID,
-					record.Type,
-					record.Name,
-					record.Content,
-					yesOrNo(record.Proxiable),
-					yesOrNo(record.Proxied),
-					yesOrNo(record.Locked),
-					fmt.Sprintf("%d", record.TTL),
-					record.CreatedOn.Format("2006/01/02 15:04:05"),
-					record.ModifiedOn.Format("2006/01/02 15:04:05"),
-				})
+				table.add(record)
 			}
 		}
 
@@ -67,4 +46,44 @@ var cmdRecordsList = cli.Command{
 			table.Render()
 		}
 	},
+}
+
+type recordsTable struct {
+	table *tablewriter.Table
+}
+
+func newRecordsTable() *recordsTable {
+	table := tablewriter.NewWriter(os.Stdout)
+	table.SetHeader([]string{
+		"ID",
+		"Type",
+		"Name",
+		"Content",
+		"Proxiable",
+		"Proxied",
+		"Locked",
+		"TTL",
+		"Created On",
+		"Modified On",
+	})
+	return &recordsTable{
+		table: table,
+	}
+}
+
+func (table *recordsTable) Render() { table.table.Render() }
+
+func (table *recordsTable) add(record *cloudflare.Record) {
+	table.table.Append([]string{
+		record.ID,
+		record.Type,
+		record.Name,
+		record.Content,
+		yesOrNo(record.Proxiable),
+		yesOrNo(record.Proxied),
+		yesOrNo(record.Locked),
+		fmt.Sprintf("%d", record.TTL),
+		record.CreatedOn.Format("2006/01/02 15:04:05"),
+		record.ModifiedOn.Format("2006/01/02 15:04:05"),
+	})
 }
