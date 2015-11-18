@@ -19,7 +19,7 @@ var cmdRecordsList = cli.Command{
 	Flags: []cli.Flag{
 		cli.BoolFlag{
 			Name:  "list",
-			Usage: "if true only prints ids",
+			Usage: "print list instead of table",
 		},
 	},
 	Action: func(c *cli.Context) {
@@ -32,19 +32,18 @@ var cmdRecordsList = cli.Command{
 			log.Fatal(err)
 		}
 
-		table := newRecordsTable()
-
-		for _, record := range records {
-			if c.Bool("list") {
+		if c.Bool("list") {
+			for _, record := range records {
 				fmt.Println(record.ID)
-			} else {
-				table.add(record)
 			}
+			return
 		}
 
-		if !c.Bool("list") {
-			table.Render()
+		table := newRecordsTable()
+		for _, record := range records {
+			table.add(record)
 		}
+		table.Render()
 	},
 }
 
