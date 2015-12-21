@@ -1,6 +1,7 @@
 # Golang CloudFlare® API v4 client
 
-[![GoDoc](https://godoc.org/github.com/crackcomm/cloudflare?status.svg)](https://godoc.org/github.com/crackcomm/cloudflare)
+[![GoDoc](https://godoc.org/github.com/crackcomm/cloudflare?status.svg)](https://godoc.org/github.com/crackcomm/cloudflare) [![Circle CI](https://img.shields.io/circleci/project/crackcomm/cloudflare.svg)](https://circleci.com/gh/crackcomm/cloudflare)
+
 
 Golang API Client for CloudFlare® API v4.
 
