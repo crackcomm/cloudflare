@@ -1,0 +1,27 @@
+{
+	"ImportPath": "github.com/crackcomm/cloudflare",
+	"GoVersion": "go1.5.1",
+	"Packages": [
+		"github.com/crackcomm/cloudflare/cf"
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.2.0-183-gb5232bb",
+			"Rev": "b5232bb2934f606f9f27a1305f1eea224e8e8b88"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-runewidth",
+			"Comment": "travisish-37-g12e0ff7",
+			"Rev": "12e0ff74603c9a3209d8bf84f8ab349fe1ad9477"
+		},
+		{
+			"ImportPath": "github.com/olekukonko/tablewriter",
+			"Rev": "ba39908d7470c19112137d843bf0025bb2e9f23c"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "28273ec927bee3bea305f112fc28ceee575ea893"
+		}
+	]
+}
