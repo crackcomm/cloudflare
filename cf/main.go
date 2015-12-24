@@ -22,12 +22,12 @@ func main() {
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:   "email",
-			Usage:  "CloudFlare user email",
+			Usage:  "user email",
 			EnvVar: "CLOUDFLARE_EMAIL",
 		},
 		cli.StringFlag{
 			Name:   "key",
-			Usage:  "CloudFlare user key",
+			Usage:  "user key",
 			EnvVar: "CLOUDFLARE_KEY",
 		},
 	}
