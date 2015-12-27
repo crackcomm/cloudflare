@@ -21,13 +21,38 @@ var cmdRecordsList = cli.Command{
 			Name:  "list",
 			Usage: "print list instead of table",
 		},
+		cli.StringFlag{
+			Name:  "domain",
+			Usage: "print list instead of table",
+		},
 	},
 	Action: func(c *cli.Context) {
-		if len(c.Args()) == 0 {
-			log.Fatal("Usage error: zone id is required to print its records.")
+		zoneID := c.Args().First()
+		if zoneID == "" && c.String("domain") == "" {
+			log.Fatal("Usage error: zone id or --domain is required to print its records.")
 		}
 
-		records, err := client(c).Records.List(context.Background(), c.Args().First())
+		cfclient := client(c)
+
+		if domain := c.String("domain"); domain != "" {
+			zones, err := client(c).Zones.List(context.Background())
+			if err != nil {
+				log.Fatal(err)
+			}
+
+			for _, zone := range zones {
+				if zone.Name == domain {
+					zoneID = zone.ID
+					break
+				}
+			}
+
+			if zoneID == "" {
+				log.Fatalf("Domain %q was not found", domain)
+			}
+		}
+
+		records, err := cfclient.Records.List(context.Background(), zoneID)
 		if err != nil {
 			log.Fatal(err)
 		}
