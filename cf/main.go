@@ -31,5 +31,7 @@ func main() {
 			EnvVar: "CLOUDFLARE_KEY",
 		},
 	}
-	app.Run(os.Args)
+	if err := app.Run(os.Args); err != nil {
+		log.Fatal(err)
+	}
 }
