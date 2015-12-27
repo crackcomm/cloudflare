@@ -10,7 +10,7 @@ import (
 var cmdRecordsDelete = cli.Command{
 	Name:      "delete",
 	Usage:     "deletes zone record",
-	ArgsUsage: "<zone-id> <record-id> [<record-id> ...]",
+	ArgsUsage: "<record-id> [<record-id> ...]",
 	Flags: []cli.Flag{
 		cli.BoolFlag{
 			Name:  "all",
@@ -26,8 +26,9 @@ var cmdRecordsDelete = cli.Command{
 		},
 	},
 	Action: func(c *cli.Context) {
-		if c.Args().First() == "" {
-			log.Fatal("Usage error: zone id is required.")
+		zoneID, err := getZoneID(c)
+		if err != nil {
+			return
 		}
 
 		if !c.Bool("all") {
@@ -47,7 +48,7 @@ var cmdRecordsDelete = cli.Command{
 		)
 
 		if c.Bool("all") {
-			records, err := client(c).Records.List(context.Background(), c.Args().First())
+			records, err := client(c).Records.List(context.Background(), zoneID)
 			if err != nil {
 				log.Fatalf("Error listing records: %v", err)
 			}
@@ -62,11 +63,11 @@ var cmdRecordsDelete = cli.Command{
 				ids = append(ids, record.ID)
 			}
 		} else {
-			ids = c.Args()[1:]
+			ids = c.Args()
 		}
 
 		for _, id := range ids {
-			err := client(c).Records.Delete(context.Background(), c.Args().First(), id)
+			err := client(c).Records.Delete(context.Background(), zoneID, id)
 			if err != nil {
 				log.Fatalf("Error deleting %q: %v", id, err)
 			}

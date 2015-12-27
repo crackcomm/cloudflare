@@ -10,9 +10,8 @@ import (
 )
 
 var cmdRecordsCreate = cli.Command{
-	Name:      "create",
-	Usage:     "creates zone record",
-	ArgsUsage: "<zone-id>",
+	Name:  "create",
+	Usage: "creates zone record",
 	Flags: []cli.Flag{
 		cli.StringFlag{
 			Name:  "name",
@@ -37,9 +36,9 @@ var cmdRecordsCreate = cli.Command{
 		},
 	},
 	Action: func(c *cli.Context) {
-		zoneID := c.Args().First()
-		if zoneID == "" {
-			log.Fatal("Usage error: zone id is required.")
+		zoneID, err := getZoneID(c)
+		if err != nil {
+			return
 		}
 		if c.String("type") == "" {
 			log.Fatal("Usage error: --type flag is required.")
@@ -62,8 +61,7 @@ var cmdRecordsCreate = cli.Command{
 			ZoneID:  zoneID,
 		}
 
-		err := client(c).Records.Create(context.Background(), record)
-		if err != nil {
+		if err := client(c).Records.Create(context.Background(), record); err != nil {
 			log.Fatalf("Error creating record: %v", err)
 		}
 

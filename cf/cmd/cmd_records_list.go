@@ -13,46 +13,21 @@ import (
 )
 
 var cmdRecordsList = cli.Command{
-	Name:      "list",
-	Usage:     "lists zone records",
-	ArgsUsage: "<zone-id>",
+	Name:  "list",
+	Usage: "lists zone records",
 	Flags: []cli.Flag{
 		cli.BoolFlag{
 			Name:  "list",
 			Usage: "print list instead of table",
 		},
-		cli.StringFlag{
-			Name:  "domain",
-			Usage: "print list instead of table",
-		},
 	},
 	Action: func(c *cli.Context) {
-		zoneID := c.Args().First()
-		if zoneID == "" && c.String("domain") == "" {
-			log.Fatal("Usage error: zone id or --domain is required to print its records.")
+		zoneID, err := getZoneID(c)
+		if err != nil {
+			return
 		}
 
-		cfclient := client(c)
-
-		if domain := c.String("domain"); domain != "" {
-			zones, err := client(c).Zones.List(context.Background())
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			for _, zone := range zones {
-				if zone.Name == domain {
-					zoneID = zone.ID
-					break
-				}
-			}
-
-			if zoneID == "" {
-				log.Fatalf("Domain %q was not found", domain)
-			}
-		}
-
-		records, err := cfclient.Records.List(context.Background(), zoneID)
+		records, err := client(c).Records.List(context.Background(), zoneID)
 		if err != nil {
 			log.Fatal(err)
 		}
