@@ -15,6 +15,7 @@ func New() []cli.Command {
 	return []cli.Command{
 		cmdZones,
 		cmdRecords,
+		cmdFirewalls,
 	}
 }
 
