@@ -32,7 +32,7 @@ var cmdRecordsDelete = cli.Command{
 		}
 
 		if !c.Bool("all") {
-			if len(c.Args()) < 2 {
+			if len(c.Args()) < 1 {
 				log.Fatal("Usage error: --all flag or at least one record id is required.")
 			} else if c.String("type") != "" {
 				log.Fatal("Usage error: --type can be only used with --all.")
@@ -71,8 +71,7 @@ var cmdRecordsDelete = cli.Command{
 			if err != nil {
 				log.Fatalf("Error deleting %q: %v", id, err)
 			}
+			log.Printf("Deleted record with id %q.", id)
 		}
-
-		log.Println("Done")
 	},
 }
