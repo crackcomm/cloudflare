@@ -6,8 +6,8 @@ import (
 	"golang.org/x/net/context"
 )
 
-// ExampleRecordsList - Lists all zone DNS records.
-func ExampleRecordsList(ctx context.Context, client *Client) {
+// ExampleRecords_List - Lists all zone DNS records.
+func ExampleRecords_List(ctx context.Context, client *Client) {
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)

@@ -6,8 +6,8 @@ import (
 	"golang.org/x/net/context"
 )
 
-// ExampleFirewallsList - Lists all firewall rules for a zone.
-func ExampleFirewallsList(ctx context.Context, client *Client) {
+// ExampleFirewalls_List - Lists all firewall rules for a zone.
+func ExampleFirewalls_List(ctx context.Context, client *Client) {
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)
