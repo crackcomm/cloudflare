@@ -36,7 +36,7 @@ type ZoneOwner struct {
 type ZoneMeta struct {
 	Step                    int    `json:"step,omitempty"`
 	PageRuleQuota           string `json:"page_rule_quota,omitempty"`
-	CustomCertificateQuota  int    `json:"custom_certificate_quota,omitempty"`
+	CustomCertificateQuota  string `json:"custom_certificate_quota,omitempty"`
 	WildcardProxiable       bool   `json:"wildcard_proxiable,omitempty"`
 	PhishingDetected        bool   `json:"phishing_detected,omitempty"`
 	MultipleRailgunsAllowed bool   `json:"multiple_railguns_allowed,omitempty"`
