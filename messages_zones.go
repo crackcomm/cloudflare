@@ -38,18 +38,18 @@ type ZoneOwner struct {
 
 // ZoneMeta -
 type ZoneMeta struct {
-	Step                    int    `json:"step,omitempty"`
-	PageRuleQuota           string `json:"page_rule_quota,omitempty"`
-	CustomCertificateQuota  int    `json:"custom_certificate_quota,omitempty"`
-	WildcardProxiable       bool   `json:"wildcard_proxiable,omitempty"`
-	PhishingDetected        bool   `json:"phishing_detected,omitempty"`
-	MultipleRailgunsAllowed bool   `json:"multiple_railguns_allowed,omitempty"`
+	Step                    int  `json:"step,omitempty"`
+	PageRuleQuota           int  `json:"page_rule_quota,omitempty"`
+	CustomCertificateQuota  int  `json:"custom_certificate_quota,omitempty"`
+	WildcardProxiable       bool `json:"wildcard_proxiable,omitempty"`
+	PhishingDetected        bool `json:"phishing_detected,omitempty"`
+	MultipleRailgunsAllowed bool `json:"multiple_railguns_allowed,omitempty"`
 }
 
 func (m *ZoneMeta) UnmarshalJSON(data []byte) error {
 	f := struct {
 		Step                    int          `json:"step,omitempty"`
-		PageRuleQuota           string       `json:"page_rule_quota,omitempty"`
+		PageRuleQuota           int          `json:"page_rule_quota,omitempty"`
 		CustomCertificateQuota  *maybeNumber `json:"custom_certificate_quota,omitempty"`
 		WildcardProxiable       bool         `json:"wildcard_proxiable,omitempty"`
 		PhishingDetected        bool         `json:"phishing_detected,omitempty"`
