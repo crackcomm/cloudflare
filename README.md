@@ -69,7 +69,7 @@ func main() {
 	})
 
 	ctx := context.Background()
-	ctx, _ = context.WithDeadline(ctx, time.Now().Add(time.Second*30))
+	ctx, _ = context.WithTimeout(ctx, time.Second*30)
 
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
