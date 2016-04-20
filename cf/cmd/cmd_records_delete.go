@@ -37,7 +37,7 @@ var cmdRecordsDelete = cli.Command{
 			} else if c.String("type") != "" {
 				log.Fatal("Usage error: --type can be only used with --all.")
 			} else if c.String("ignore") != "" {
-				log.Fatal("Usage error: --type can be only used with --all.")
+				log.Fatal("Usage error: --ignore can be only used with --all.")
 			}
 		}
 
