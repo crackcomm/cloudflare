@@ -7,7 +7,10 @@ import (
 )
 
 // ExampleRecords_List - Lists all zone DNS records.
-func ExampleRecords_List(ctx context.Context, client *Client) {
+func ExampleRecords_List() {
+	var client *Client
+	ctx := context.Background()
+
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)

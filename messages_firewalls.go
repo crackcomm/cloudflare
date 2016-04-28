@@ -4,11 +4,6 @@ import (
 	"time"
 )
 
-type FirewallConfiguration struct {
-	Target string `json:"target,omitempty"`
-	Value  string `json:"value,omitempty"`
-}
-
 // Firewall - Firewall for zone.
 type Firewall struct {
 	ID string `json:"id,omitempty"`
@@ -22,4 +17,10 @@ type Firewall struct {
 
 	CreatedOn  time.Time `json:"created_on,omitempty"`
 	ModifiedOn time.Time `json:"modified_on,omitempty"`
+}
+
+// FirewallConfiguration - Firewall configuration for the zone.
+type FirewallConfiguration struct {
+	Target string `json:"target,omitempty"`
+	Value  string `json:"value,omitempty"`
 }

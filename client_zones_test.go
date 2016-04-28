@@ -7,7 +7,10 @@ import (
 )
 
 // ExampleZones_List - Lists all zones.
-func ExampleZones_List(ctx context.Context, client *Client) {
+func ExampleZones_List() {
+	var client *Client
+	ctx := context.Background()
+
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)
@@ -19,7 +22,10 @@ func ExampleZones_List(ctx context.Context, client *Client) {
 }
 
 // ExampleZones_Details - Gets zone details by ID.
-func ExampleZones_Details(ctx context.Context, client *Client) {
+func ExampleZones_Details() {
+	var client *Client
+	ctx := context.Background()
+
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)
@@ -36,7 +42,10 @@ func ExampleZones_Details(ctx context.Context, client *Client) {
 }
 
 // ExampleZones_Delete - Deletes zone by ID.
-func ExampleZones_Delete(ctx context.Context, client *Client) {
+func ExampleZones_Delete() {
+	var client *Client
+	ctx := context.Background()
+
 	zones, err := client.Zones.List(ctx)
 	if err != nil {
 		log.Fatal(err)
