@@ -29,23 +29,6 @@ GLOBAL OPTIONS:
    --key 		CloudFlare user key [$CLOUDFLARE_KEY]
    --help, -h		show help
    --version, -v	print the version
-
-$ cf zones list
-+----------------------------------+-------------------+--------+---------+
-|                ID                |       NAME        | PAUSED | STATUS  |
-+----------------------------------+-------------------+--------+---------+
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | xxxxxxxxxxx.com   | no     | pending |
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | xxxxxxxxxxx.com   | no     | pending |
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | xxxxxxxxxxx.com   | no     | active  |
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | xxxxxxxxxxx.com   | no     | active  |
-+----------------------------------+-------------------+--------+---------+
-$ cf records list 5xxxxxcxxxxxxxxxxxxxxxxxxxxxxxx2
-+----------------------------------+------+------------------+-------------+-----------+---------+--------+-----+---------------------+---------------------+
-|                ID                | TYPE |       NAME       |   CONTENT   | PROXIABLE | PROXIED | LOCKED | TTL |     CREATED ON      |     MODIFIED ON     |
-+----------------------------------+------+------------------+-------------+-----------+---------+--------+-----+---------------------+---------------------+
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | A    | xxxxxxxxx.pl     | xx.xx.xx.xx | yes       | yes     | no     |   1 | 2015/01/13 15:53:59 | 2015/01/13 15:53:59 |
-| xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx | A    | www.xxxxxxxxx.pl | xx.xx.xx.xx | yes       | yes     | no     |   1 | 2015/01/13 15:53:59 | 2015/01/13 15:53:59 |
-+----------------------------------+------+------------------+-------------+-----------+---------+--------+-----+---------------------+---------------------+
 ```
 
 ## Usage
@@ -57,9 +40,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/crackcomm/cloudflare"
-
 	"golang.org/x/net/context"
+
+	"github.com/crackcomm/cloudflare"
 )
 
 func main() {
