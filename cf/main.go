@@ -17,7 +17,7 @@ func main() {
 	app.Name = "cf"
 	app.HelpName = app.Name
 	app.Usage = "CloudFlare command line tool"
-	app.Version = "1.0.0"
+	app.Version = "1.0.1"
 	app.Commands = cmd.New()
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
