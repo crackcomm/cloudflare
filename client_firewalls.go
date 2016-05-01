@@ -9,7 +9,8 @@ import (
 
 // Firewalls - Cloudflare Fireall Zones API Client.
 type Firewalls struct {
-	opts *Options
+	// Options - Client options.
+	*Options
 }
 
 // Create - Creates a firewall rule for zone.
@@ -19,7 +20,7 @@ func (firewalls *Firewalls) Create(ctx context.Context, id string, firewall *Fir
 	if err != nil {
 		return
 	}
-	response, err := httpDo(ctx, firewalls.opts, "POST", apiURL("/zones/%s/firewall/access_rules/rules", id), buffer)
+	response, err := httpDo(ctx, firewalls.Options, "POST", apiURL("/zones/%s/firewall/access_rules/rules", id), buffer)
 	if err != nil {
 		return
 	}
@@ -40,7 +41,7 @@ func (firewalls *Firewalls) List(ctx context.Context, zone string) ([]*Firewall,
 
 // Delete - Deletes firewall by id.
 func (firewalls *Firewalls) Delete(ctx context.Context, zone, id string) (err error) {
-	response, err := httpDo(ctx, firewalls.opts, "DELETE", apiURL("/zones/%s/firewall/access_rules/rules/%s", zone, id), nil)
+	response, err := httpDo(ctx, firewalls.Options, "DELETE", apiURL("/zones/%s/firewall/access_rules/rules/%s", zone, id), nil)
 	if err != nil {
 		return
 	}
@@ -51,7 +52,7 @@ func (firewalls *Firewalls) Delete(ctx context.Context, zone, id string) (err er
 
 // listPages - Gets all pages starting from `page`.
 func (firewalls *Firewalls) listPages(ctx context.Context, zone string, page int) (list []*Firewall, err error) {
-	response, err := httpDo(ctx, firewalls.opts, "GET", apiURL("/zones/%s/firewall/access_rules/rules?page=%d&per_page=50", zone, page), nil)
+	response, err := httpDo(ctx, firewalls.Options, "GET", apiURL("/zones/%s/firewall/access_rules/rules?page=%d&per_page=50", zone, page), nil)
 	if err != nil {
 		return
 	}

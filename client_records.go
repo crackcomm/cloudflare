@@ -9,7 +9,8 @@ import (
 
 // Records - Cloudflare Records API Client.
 type Records struct {
-	opts *Options
+	// Options - Client options.
+	*Options
 }
 
 // Create - Creates a zone DNS record.
@@ -21,7 +22,7 @@ func (records *Records) Create(ctx context.Context, record *Record) (err error) 
 	if err != nil {
 		return
 	}
-	response, err := httpDo(ctx, records.opts, "POST", apiURL("/zones/%s/dns_records", record.ZoneID), buffer)
+	response, err := httpDo(ctx, records.Options, "POST", apiURL("/zones/%s/dns_records", record.ZoneID), buffer)
 	if err != nil {
 		return
 	}
@@ -37,7 +38,7 @@ func (records *Records) List(ctx context.Context, zoneID string) ([]*Record, err
 
 // Details - Requests zone DNS record details by zone ID and record ID.
 func (records *Records) Details(ctx context.Context, zoneID, recordID string) (record *Record, err error) {
-	response, err := httpDo(ctx, records.opts, "GET", apiURL("/zones/%s/dns_records/%s", zoneID, recordID), nil)
+	response, err := httpDo(ctx, records.Options, "GET", apiURL("/zones/%s/dns_records/%s", zoneID, recordID), nil)
 	if err != nil {
 		return
 	}
@@ -58,7 +59,7 @@ func (records *Records) Patch(ctx context.Context, record *Record) (err error) {
 	if err != nil {
 		return
 	}
-	response, err := httpDo(ctx, records.opts, "PUT", apiURL("/zones/%s/dns_records/%s", record.ZoneID, record.ID), buffer)
+	response, err := httpDo(ctx, records.Options, "PUT", apiURL("/zones/%s/dns_records/%s", record.ZoneID, record.ID), buffer)
 	if err != nil {
 		return
 	}
@@ -69,7 +70,7 @@ func (records *Records) Patch(ctx context.Context, record *Record) (err error) {
 
 // Delete - Deletes zone DNS record by zone ID and record ID.
 func (records *Records) Delete(ctx context.Context, zoneID, recordID string) (err error) {
-	response, err := httpDo(ctx, records.opts, "DELETE", apiURL("/zones/%s/dns_records/%s", zoneID, recordID), nil)
+	response, err := httpDo(ctx, records.Options, "DELETE", apiURL("/zones/%s/dns_records/%s", zoneID, recordID), nil)
 	if err != nil {
 		return
 	}
@@ -80,7 +81,7 @@ func (records *Records) Delete(ctx context.Context, zoneID, recordID string) (er
 
 // listPages - Gets all pages starting from `page`.
 func (records *Records) listPages(ctx context.Context, zoneID string, page int) (list []*Record, err error) {
-	response, err := httpDo(ctx, records.opts, "GET", apiURL("/zones/%s/dns_records?page=%d&per_page=50", zoneID, page), nil)
+	response, err := httpDo(ctx, records.Options, "GET", apiURL("/zones/%s/dns_records?page=%d&per_page=50", zoneID, page), nil)
 	if err != nil {
 		return
 	}

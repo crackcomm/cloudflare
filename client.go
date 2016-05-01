@@ -10,15 +10,15 @@ type Client struct {
 	*Zones
 	*Records
 	*Firewalls
-	opts *Options
+	*Options
 }
 
 // New - Creates a new Cloudflare client.
 func New(opts *Options) *Client {
 	return &Client{
-		Zones:     &Zones{opts: opts},
-		Records:   &Records{opts: opts},
-		Firewalls: &Firewalls{opts: opts},
-		opts:      opts,
+		Zones:     &Zones{Options: opts},
+		Records:   &Records{Options: opts},
+		Firewalls: &Firewalls{Options: opts},
+		Options:   opts,
 	}
 }
