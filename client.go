@@ -7,9 +7,13 @@ type Options struct {
 
 // Client - Cloudflare API Client.
 type Client struct {
+	// Zones - Zones API Client.
 	*Zones
+	// Records - Records API Client.
 	*Records
+	// Firewalls - Firewalls API Client.
 	*Firewalls
+	// Options - API Client options.
 	*Options
 }
 
