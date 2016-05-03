@@ -2,6 +2,7 @@ package cloudflare
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -47,6 +48,11 @@ func httpDo(ctx context.Context, opts *Options, method, url string, body io.Read
 	respchan := make(chan *httpResponse, 1)
 	go func() {
 		resp, err := client.Do(req)
+		if err == nil {
+			if resp.ContentLength == 0 {
+				err = errors.New("empty response body")
+			}
+		}
 		respchan <- &httpResponse{resp: resp, err: err}
 	}()
 

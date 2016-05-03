@@ -42,6 +42,10 @@ var cmdRecordsCreate = cli.Command{
 			Value: 3600,
 			Usage: "record time to live",
 		},
+		cli.IntFlag{
+			Name:  "priority",
+			Usage: "record priority",
+		},
 	},
 	Action: func(c *cli.Context) {
 		zoneID, err := getZoneID(c)
@@ -58,15 +62,14 @@ var cmdRecordsCreate = cli.Command{
 			log.Fatal("Usage error: --content flag is required.")
 		}
 
-		log.Printf("Creating record in zone: %s", zoneID)
-
 		record := &cloudflare.Record{
-			Type:    c.String("type"),
-			Name:    c.String("name"),
-			Content: c.String("content"),
-			TTL:     c.Int("ttl"),
-			Proxied: c.Bool("proxied"),
-			ZoneID:  zoneID,
+			Type:     c.String("type"),
+			Name:     c.String("name"),
+			Content:  c.String("content"),
+			TTL:      c.Int("ttl"),
+			Proxied:  c.Bool("proxied"),
+			Priority: c.Int("priority"),
+			ZoneID:   zoneID,
 		}
 
 		if err := client(c).Records.Create(context.Background(), record); err != nil {

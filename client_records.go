@@ -27,7 +27,22 @@ func (records *Records) Create(ctx context.Context, record *Record) (err error) 
 		return
 	}
 	defer response.Body.Close()
-	_, err = readResponse(response.Body)
+	result, err := readResponse(response.Body)
+	if err != nil {
+		return
+	}
+	res := new(Record)
+	err = json.Unmarshal(result.Result, &res)
+	if err != nil {
+		return
+	}
+	record.ID = res.ID
+	record.TTL = res.TTL
+	record.Locked = res.Locked
+	record.Proxied = res.Proxied
+	record.Proxiable = res.Proxiable
+	record.CreatedOn = res.CreatedOn
+	record.ModifiedOn = res.ModifiedOn
 	return
 }
 

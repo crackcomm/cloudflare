@@ -66,6 +66,7 @@ func newRecordsTable() *recordsTable {
 		"Type",
 		"Name",
 		"Content",
+		"Priority",
 		"Proxiable",
 		"Proxied",
 		"Locked",
