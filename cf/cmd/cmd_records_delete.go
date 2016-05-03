@@ -12,6 +12,14 @@ var cmdRecordsDelete = cli.Command{
 	Usage:     "deletes zone record",
 	ArgsUsage: "<record-id> [<record-id> ...]",
 	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "domain",
+			Usage: "domain name",
+		},
+		cli.StringFlag{
+			Name:  "zone",
+			Usage: "zone id",
+		},
 		cli.BoolFlag{
 			Name:  "all",
 			Usage: "deletes all zone records",
@@ -28,7 +36,7 @@ var cmdRecordsDelete = cli.Command{
 	Action: func(c *cli.Context) {
 		zoneID, err := getZoneID(c)
 		if err != nil {
-			return
+			log.Fatal(err)
 		}
 
 		if !c.Bool("all") {

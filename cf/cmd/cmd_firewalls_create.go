@@ -14,6 +14,14 @@ var cmdFirewallsCreate = cli.Command{
 	Usage: "create a firewall rule",
 	Flags: []cli.Flag{
 		cli.StringFlag{
+			Name:  "domain",
+			Usage: "domain name",
+		},
+		cli.StringFlag{
+			Name:  "zone",
+			Usage: "zone id",
+		},
+		cli.StringFlag{
 			Name:  "mode",
 			Usage: "action mode [whitelist|block|challenge] (required)",
 		},

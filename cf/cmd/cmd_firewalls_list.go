@@ -16,6 +16,14 @@ var cmdFirewallsList = cli.Command{
 	Name:  "list",
 	Usage: "lists firewall rules",
 	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "domain",
+			Usage: "domain name",
+		},
+		cli.StringFlag{
+			Name:  "zone",
+			Usage: "zone id",
+		},
 		cli.BoolFlag{
 			Name:  "list",
 			Usage: "print list instead of table",

@@ -14,6 +14,14 @@ var cmdRecordsCreate = cli.Command{
 	Usage: "creates zone record",
 	Flags: []cli.Flag{
 		cli.StringFlag{
+			Name:  "domain",
+			Usage: "domain name",
+		},
+		cli.StringFlag{
+			Name:  "zone",
+			Usage: "zone id",
+		},
+		cli.StringFlag{
 			Name:  "name",
 			Usage: "record name (required)",
 		},
@@ -38,7 +46,7 @@ var cmdRecordsCreate = cli.Command{
 	Action: func(c *cli.Context) {
 		zoneID, err := getZoneID(c)
 		if err != nil {
-			return
+			log.Fatal(err)
 		}
 		if c.String("type") == "" {
 			log.Fatal("Usage error: --type flag is required.")

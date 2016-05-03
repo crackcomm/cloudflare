@@ -10,31 +10,22 @@ import (
 var cmdRecords = cli.Command{
 	Name:  "records",
 	Usage: "zone records management",
-	Flags: []cli.Flag{
-		cli.StringFlag{
-			Name:  "domain",
-			Usage: "domain name",
-		},
-		cli.StringFlag{
-			Name:  "zone",
-			Usage: "zone id",
-		},
-	},
 	Subcommands: []cli.Command{
 		cmdRecordsCreate,
 		cmdRecordsList,
+		cmdRecordsDetails,
 		cmdRecordsDelete,
 	},
 }
 
 func getZoneID(c *cli.Context) (zoneID string, err error) {
-	zoneID = c.GlobalString("zone")
+	zoneID = c.String("zone")
 	if zoneID != "" {
 		return
-	} else if c.GlobalString("domain") == "" {
+	} else if c.String("domain") == "" {
 		return "", fmt.Errorf("Usage error: --zone or --domain flag is required.")
 	}
-	if domain := c.GlobalString("domain"); domain != "" {
+	if domain := c.String("domain"); domain != "" {
 		zones, err := client(c).Zones.List(context.Background())
 		if err != nil {
 			return "", err

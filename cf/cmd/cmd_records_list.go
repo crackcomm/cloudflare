@@ -16,6 +16,14 @@ var cmdRecordsList = cli.Command{
 	Name:  "list",
 	Usage: "lists zone records",
 	Flags: []cli.Flag{
+		cli.StringFlag{
+			Name:  "domain",
+			Usage: "domain name",
+		},
+		cli.StringFlag{
+			Name:  "zone",
+			Usage: "zone id",
+		},
 		cli.BoolFlag{
 			Name:  "list",
 			Usage: "print list instead of table",
@@ -24,7 +32,7 @@ var cmdRecordsList = cli.Command{
 	Action: func(c *cli.Context) {
 		zoneID, err := getZoneID(c)
 		if err != nil {
-			return
+			log.Fatal(err)
 		}
 
 		records, err := client(c).Records.List(context.Background(), zoneID)
